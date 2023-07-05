@@ -11,7 +11,6 @@ services:
       - ./.env
     volumes:
       - pgdata:/var/lib/postgresql/data
-      - ./db-init-scripts:/docker-entrypoint-initdb.d
     ports:
       - "5432:5432"
     healthcheck:
@@ -34,10 +33,12 @@ services:
 
   python:
     container_name: python
-    build: .
+    build: python/.
     image: python_for_pg
     env_file:
       - ./.env
+    volumes:
+      - ./python:/home/python
 
 volumes:
   pgdata:
